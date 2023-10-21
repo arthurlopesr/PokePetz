@@ -5,6 +5,7 @@ export const Container = styled.div`
   background-color: ${theme.colors.red};
   width: 100%;
   height: 187px;
+  margin-bottom: 32px;
 
   padding: 32px 106px;
 `;
