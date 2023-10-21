@@ -21,3 +21,19 @@ export const FormContainer = styled.form`
   margin-top: 32px;
   margin-bottom: 70px;
 `;
+
+export const NameContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  gap: 18px;
+`;
+
+export const RegionContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  gap: 18px;
+`;
