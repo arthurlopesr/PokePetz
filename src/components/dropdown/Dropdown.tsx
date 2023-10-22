@@ -12,7 +12,7 @@ import {
 
 interface DropdownProps {
   placeholder: string;
-  label: string;
+  label?: string;
   selected: string;
   setSelected: (selected: string) => void;
 }
