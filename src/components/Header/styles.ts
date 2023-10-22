@@ -45,6 +45,7 @@ export const ScheduleAppointmentContainer = styled.div`
   background-color: ${theme.colors.red};
   color: ${theme.colors.white};
   transition: background-color 0.2s ease-in-out;
+  font-weight: bold;
 
   display: flex;
   align-items: center;
