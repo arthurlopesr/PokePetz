@@ -11,14 +11,14 @@ export const Container = styled.div`
 `;
 
 export const Navigation = styled.div`
-  width: 130px;
+  width: 160px;
   font-size: 12px;
   color: ${theme.colors.white};
   font-weight: ${theme.font.bold};
 
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 5px;
 `;
 
 export const Wrapper = styled.div`
