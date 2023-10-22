@@ -73,6 +73,11 @@ export const PokemonContainer = styled.div`
     border: 1px solid #1d1d1d;
     background-color: transparent;
   }
+  button:disabled {
+    border: 1px solid #747474;
+    color: #747474;
+    cursor: not-allowed;
+  }
 `;
 
 export const PokemonContent = styled.div`

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useSchedulingForm } from "../../hooks/useSchedulingForm";
+import { formatCurrency } from "../../utils/formartCurrency";
 import { Button } from "../button/Button";
 import { Dropdown } from "../dropdown/Dropdown";
 import { Plus } from "../icons/Plus";
@@ -19,12 +20,21 @@ import {
 } from "./styles";
 
 export function SchedulingSection() {
-  const { register, handleSubmit, errors } = useSchedulingForm();
+  const { register, handleSubmit, errors, fields, append, remove } =
+    useSchedulingForm();
   const [selectedRegion, seSelectedRegion] = useState("");
   const [selectedCity, seSelectedCity] = useState("");
   const [selectedDate, seSelectedDate] = useState("");
   const [selected, seSelected] = useState("");
   const [selectedTime, seSelectedTime] = useState("");
+
+  const unitServicePerPokemon = 70;
+  const subTotal = unitServicePerPokemon * fields.length;
+  const subTotalWithRate = subTotal * 1.03;
+
+  function addNewPokemon() {
+    append({ id: 0, pokemon: "" });
+  }
 
   return (
     <>
@@ -69,40 +79,24 @@ export function SchedulingSection() {
             <span>Atendemos até 06 pokémons por vez</span>
 
             <PokemonContainer>
-              <PokemonContent>
-                <span>Pokemon 01</span>
-                <Dropdown
-                  placeholder={"Selecione seu pokémon"}
-                  selected={selected}
-                  setSelected={seSelected}
-                />
-              </PokemonContent>
-              <PokemonContent>
-                <span>Pokemon 01</span>
-                <Dropdown
-                  placeholder={"Selecione seu pokémon"}
-                  selected={selected}
-                  setSelected={seSelected}
-                />
-              </PokemonContent>
-              <PokemonContent>
-                <span>Pokemon 01</span>
-                <Dropdown
-                  placeholder={"Selecione seu pokémon"}
-                  selected={selected}
-                  setSelected={seSelected}
-                />
-              </PokemonContent>
-              <PokemonContent>
-                <span>Pokemon 01</span>
-                <Dropdown
-                  placeholder={"Selecione seu pokémon"}
-                  selected={selected}
-                  setSelected={seSelected}
-                />
-              </PokemonContent>
+              {fields.map((field) => (
+                <>
+                  <PokemonContent key={field.id}>
+                    <span>Pokemon 01</span>
+                    <Dropdown
+                      placeholder={"Selecione seu pokémon"}
+                      selected={selected}
+                      setSelected={seSelected}
+                    />
+                  </PokemonContent>
+                </>
+              ))}
 
-              <button type="button">
+              <button
+                type="button"
+                onClick={addNewPokemon}
+                disabled={fields.length >= 6}
+              >
                 Adicionar novo pokémon ao time... <Plus />
               </button>
             </PokemonContainer>
@@ -128,23 +122,19 @@ export function SchedulingSection() {
           <TotalizerContainer>
             <TotalizerContent>
               <p>Número de pokémons a serem atendidos:</p>
-              <p>10</p>
+              <p>{fields.length}</p>
             </TotalizerContent>
             <TotalizerContent>
               <p>Atendimento unitário por pokémon: </p>
-              <p>R$ 10,00</p>
-            </TotalizerContent>
-            <TotalizerContent>
-              <p>Atendimento unitário por pokémon: </p>
-              <p>R$ 10,00</p>
+              <p>{formatCurrency(unitServicePerPokemon)}</p>
             </TotalizerContent>
             <TotalizerContent>
               <p>Subtotal: </p>
-              <p>R$ 10,00</p>
+              <p>{formatCurrency(subTotal)}</p>
             </TotalizerContent>
             <TotalizerContent>
               <p>Taxa geracional*: </p>
-              <p>R$ 10,00</p>
+              <p>{formatCurrency(subTotalWithRate)}</p>
             </TotalizerContent>
             <TotalizerContent>
               <span>
@@ -155,7 +145,7 @@ export function SchedulingSection() {
           </TotalizerContainer>
 
           <ConcludeSchedulingContainer>
-            <span>Valor Total: R$ 100,00</span>
+            <span>Valor Total: {formatCurrency(subTotalWithRate)}</span>
             <Button type="submit">Concluir Agendamento</Button>
           </ConcludeSchedulingContainer>
         </FormContainer>
